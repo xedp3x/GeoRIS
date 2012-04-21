@@ -1,0 +1,11 @@
+# .htaccess
+
+RewriteEngine on
+
+RewriteRule ^404.html$ ./main.php?load=text&text=404 [PT,QSA]
+RewriteRule ^sitemap.xml$ ./sitemap.php [PT,QSA]
+
+RewriteRule ^(.*)/(.*).html$ ./main.php?load=$1&ref=$2 [PT,QSA]
+RewriteRule ^(.*).html$ ./main.php?load=$1 [PT,QSA]
+
+RewriteRule ^(.*).kml$ ./api.php?modul=kml&req=$1 [PT,QSA]

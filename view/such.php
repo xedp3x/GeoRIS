@@ -1,38 +1,38 @@
 <?php 
+/*
+ * Laden der GEO Daten aus der OSM DB
+ * 
+ * (A) Mario XEdP3X
+ * (c) GPL
+ */
 
-if ($_GET["finish"]){
-	echo "<h1>Daten:</h1>";
-	DUMP($_SESSION['kml']);
-}elseif ($_GET["use"]){
-
-$set = $_GET["use"];
+if ($_GET["use"]){
+	$set = $_GET["use"];
+		
+	while( list ( $key, $val ) = each ( $set ) ){
+		$such[] = array(
+			"way" => $val,
+			"role"=> $_GET["as"][$val]
+		);
+	}
+		
+	$_SESSION["ergebnis"] = $such;
+	$kml = KML_by_way($such);
 	
-while( list ( $key, $val ) = each ( $set ) ){
-	$such[] = array(
-		"way" => $val,
-		"role"=> $_GET["as"][$val]
-	);
-}
+	$_SESSION['kml'] = $kml;
 	
-$_SESSION["ergebnis"] = $such;
-$kml = KML_by_way($such);
-
-$_SESSION['kml'] = $kml;
-
-?>
+	?>
   <body onload="init('/session.kml?uni=<?=time();?>',<?=$kml["border"]["lon_min"]?> , <?=$kml["border"]["lat_min"]?> , <?=$kml["border"]["lon_max"]?> , <?=$kml["border"]["lat_max"]?> )">
 		<?=$LOGO; ?>
 
     <h1 id="title">Zusammenfassung:</h1>
      
     <div id="map" style="width: 100%; height: 85%; border: 1px solid black;" class="smallmap"></div>
-	<form>
-		<center>
-			<input type=button onclick="window.history.back()" value="Zurück"/>
-			<input type=button onclick="self.location.href='/api.php?modul=osm&req=session'" value="Download"/>
-			<input type=submit name=finish value="Weiter" />
-		</center>
-	</form>
+	<center>
+		<input type=button onclick="window.history.back()" value="Zurück"/>
+		<input type=button onclick="self.location.href='/api.php?modul=osm&req=session'" value="Download"/>
+		<input type=button onclick="self.location.href='/geo_edit.html'" value="Weiter"/>
+	</center>
   </body>
 	
 <?php
@@ -101,8 +101,9 @@ $_SESSION['kml'] = $kml;
 	    	<input type=submit value="Suchen" />
 	    </form>
 	    
+	    <h2></h2>
+	    
 	    <form>
-	    	<h2></h2>
 	    	Orte Hochladen<br />
 	    	<input type=file disabled /><br />
 	    	<input type=submit value="Hochladen" disabled />
@@ -110,6 +111,14 @@ $_SESSION['kml'] = $kml;
 	    <p>
 		    Geht noch nicht :(
 	    </p>
+	    
+	    <h2></h2>
+	    
+	    <form action="geo_edit.html" method="post">
+	    	Suche überspringen<br />
+	    	<input type="hidden" name="reset" value=true />
+	    	<input type=submit value="Weiter" />
+	    </form>
 </body>
 	
 <?}

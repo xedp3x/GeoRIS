@@ -3,4 +3,4 @@
 font: normal normal 400 18px/normal Arial;">Bitte links anklicken</span>
 </center>
 
-<img src="/img/tux_map.png" width="100%" />
+<center><img src="/img/sorry.png" /></center>

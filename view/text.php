@@ -1,5 +1,13 @@
 <div><?php
 
+/*
+ * Läd Texte aus dem "/text" Ordner
+ * 
+ * (A) Mario XEdP3X
+ * (c) GPL
+ */
+
+
 if (file_exists("text/".$_GET["text"]."_".$_SESSION["lang"].".php")){
 	include_once ("text/".$_GET["text"]."_".$_SESSION["lang"].".php");
 }elseif (file_exists("text/".$_GET["text"].".php")){

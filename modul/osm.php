@@ -1,4 +1,11 @@
 <?
+/*
+ * Export der GEO Daten im OSM format
+ * 
+ * (A) Mario XEdP3X
+ * (c) GPL
+ */
+
 
 KML_GET();
 
@@ -17,18 +24,15 @@ $exporter = Array("outer","inner","way");
 
 while( list ( $key_x, $way_type ) = each ( $exporter ) ){
 	while( list ( $key, $val ) = each ( $kml[$way_type] ) ){
-		$way .= "<way id='{$val["way"]}' version='1'>\r\n\t<tag k='type' v='$way_type' />\r\n";
-		$set = explode(" ",$val["data"]);
-		while( list ( $key2, $val2 ) = each ( $set ) ){
+		$iw++;
+		$way .= "<way id='$iw' version='1'>\r\n\t<tag k='type' v='$way_type' />\r\n";
+		
+		while( list ( $key2, $val2 ) = each ( $val["data"] ) ){
 			$in++;
-			$x = explode(",",$val2);
-			if (count($x) == 2){
-				$node .= "<node id='$in' version='1' lat='{$x[1]}' lon='{$x[0]}' />\r\n";
-				$way  .= "\t<nd ref='$in' />\r\n";
-			}	
+			$node .= "<node id='$in' version='1' lat='{$val2["lat"]}' lon='{$val2["lon"]}' />\r\n";
+			$way  .= "\t<nd ref='$in' />\r\n";
 		}
 		$way .= "</way>\r\n";
-		
 	}
 }
 

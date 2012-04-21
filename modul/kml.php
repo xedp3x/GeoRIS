@@ -1,4 +1,11 @@
 <?
+/*
+ * Export der GEO Daten im KML format
+ * 
+ * (A) Mario XEdP3X
+ * (c) GPL
+ */
+
 
 KML_GET();
 
@@ -84,7 +91,10 @@ echo'<?xml version="1.0" encoding="UTF-8"?>'."\r\n"; ?>
 					<?php while( list ( $key, $val ) = each ( $kml["outer"] ) ){?>
 					<LinearRing>
 						<coordinates>
-							<?=$val["data"]?>
+							<?
+							while( list ( $key2, $val2 ) = each ( $val["data"] ) ){
+								echo $val2["lon"].",".$val2["lat"]." ";
+							}?>
 						</coordinates>
 					</LinearRing>
 					<?php }?>
@@ -95,7 +105,10 @@ echo'<?xml version="1.0" encoding="UTF-8"?>'."\r\n"; ?>
 					<?php while( list ( $key, $val ) = each ( $kml["inner"] ) ){?>
 					<LinearRing>
 						<coordinates>
-							<?=$val["data"]?>
+							<?
+							while( list ( $key2, $val2 ) = each ( $val["data"] ) ){
+								echo $val2["lon"].",".$val2["lat"]." ";
+							}?>
 						</coordinates>
 					</LinearRing>
 					<?php }?>
@@ -109,19 +122,22 @@ echo'<?xml version="1.0" encoding="UTF-8"?>'."\r\n"; ?>
 		<?php while( list ( $key, $val ) = each ( $kml["way"] ) ){?>
 		<Placemark>
 			<name>Strecke</name>
-			<description><![CDATA[<pre><?php print_r($val)?></pre>]]></description>
+			<description><![CDATA[<pre><?=$val["name"]?></pre>]]></description>
 			<styleUrl>#msn_ylw-pushpin</styleUrl>
-			<?php if (Count(explode(",",$val["data"]))>2){?>
+			<?php if (Count($val["data"])>1){?>
 			<LineString>
 					<LinearRing>
 						<coordinates>
-							<?=$val["data"]?>
+							<?
+							while( list ( $key2, $val2 ) = each ( $val["data"] ) ){
+								echo $val2["lon"].",".$val2["lat"]." ";
+							}?>
 						</coordinates>
 					</LinearRing>
 			</LineString>
 			<?php }else{?>
 			<Point>
-				<coordinates><?=$val["data"]?></coordinates>
+				<coordinates><?=$val["data"][0]["lon"].",".$val["data"][0]["lat"]?></coordinates>
 			</Point>
 			<?php }?>
 		</Placemark>

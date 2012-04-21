@@ -3,7 +3,7 @@ var lat = 40;
 var zoom = 5;
 var map, layer;
 
-function init(URL, la, lb, lc, ld, extra){
+function init(URL, la, lb, lc, ld){
 	var options = {
 			projection: new OpenLayers.Projection("EPSG:900913"),
 			displayProjection: new OpenLayers.Projection("EPSG:4326"),

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * Backend für OSM Datenbak
+ * 
+ * (A) Mario XEdP3X
+ * (c) GPL
+ */
+
 function OSM_by_way($id){
 	return SQL_query_as_array("Select lat, lon from nodes,
 		(select nodeid as id, sequence from ways_nodes WHERE ways_nodes.wayid = $id) As ref

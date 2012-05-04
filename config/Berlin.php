@@ -55,3 +55,13 @@ $_templates[] = array(
 	"down"	=> "http://www.berlin.de/ba-reinickendorf/bvv-online/"
 
 );
+
+$_templates[] = array(
+	"id" 	=> "BE_MH_ALLRIS", 		// Eindeutige ID vom Template
+	"type"	=> "PL_ALLRIS",			// Plugin Name
+	"name"	=> "BE Marzahn-H. Allris",	// Anzeigenanme	
+
+	// Plugin Settings
+	"url"	=> "http://www.berlin.de/ba-marzahn-hellersdorf/bvv-online/vo020.asp?VOLFDNR=",
+	"down"	=> "http://www.berlin.de/ba-marzahn-hellersdorf/bvv-online/"
+);

@@ -1,4 +1,4 @@
-<div><?php
+<?php
 
 /*
  * Läd Texte aus dem "/text" Ordner
@@ -17,4 +17,4 @@ if (file_exists("text/".$_GET["text"]."_".$_SESSION["lang"].".php")){
 }else{
 	echo t("<h2>Fehler 404</h2> <br /> Die Seite konte nicht gefunden werden");
 }
-?></div>
+?>

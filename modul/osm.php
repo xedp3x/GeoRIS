@@ -36,7 +36,6 @@ while( list ( $key_x, $way_type ) = each ( $exporter ) ){
 	}
 }
 
-
 echo"<?xml version='1.0' encoding='UTF-8'?>\r\n"; ?>
 <osm version='0.6' generator='GeoRIS'>
 <?=$node?>

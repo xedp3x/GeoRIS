@@ -38,4 +38,22 @@ if ($_GET["way"]){
 	    <div id="map" style="width: 100%; height: 95%; border: 1px solid black;" class="smallmap"></div>
 		
 	  </body>
-<?php }
+<?php }else{
+	KML_GET();
+	
+	if ($kml){
+	?>
+		  <body onload="init('/session.kml?uni=<?=time();?>',<?=$kml["border"]["lon_min"]?> , <?=$kml["border"]["lat_min"]?> , <?=$kml["border"]["lon_max"]?> , <?=$kml["border"]["lat_max"]?> )">
+		
+		    <div id="map" style="width: 100%; height: 95%; border: 1px solid black;" class="smallmap"></div>
+			
+		  </body>	
+<?php }else{?>
+	<body>
+		<center>
+			<img src="/img/sorry.png" /><br />
+			Keine Orte
+		</center>
+	</body>
+	<?php }
+}

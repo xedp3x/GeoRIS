@@ -1,0 +1,19 @@
+<?php
+header("Content-type: image/png");
+header("Cache-Control: no-cache, must-revalidate");
+header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+
+$mine = MINE_get_state($_GET["id"]);
+if ($mine["state"] == 'Offline'){
+	readfile("img/off.png");
+}else{
+	
+	$bild = imageCreate(20, 16);
+	imageColorAllocate($bild, 0, 0, 0);	
+	$farbe  = imageColorAllocate($bild, 255, 255, 255);
+	
+	imageString($bild, 5, 0, 0, $mine["online"], $farbe);
+	
+	imagePNG($bild);
+	imageDestroy($bild);
+}

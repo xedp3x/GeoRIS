@@ -18,11 +18,20 @@ if (!glreq && window.createRequest) {
 
 
 function displayPosition(position) {
+	try {
+		document.getElementById('click_lat').value = position.coords.latitude;
+		document.getElementById('click_lon').value = position.coords.longitude;
+	} catch (e) {}
+
+	try {
+		document.getElementById('geolocat_click').value = 'Fertig';
+	} catch (e) {}
+
 	glreq.open("GET", "/api.php?modul=geolocat&lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&time="+position.timestamp ,true);
 	glreq.onreadystatechange=function() {
 		if (glreq.readyState==4) {
 			if (glreq.responseText != "OK"){
-				alert(glreq.responseText);
+				//alert(glreq.responseText);
 			}
 		}
 	}
@@ -42,7 +51,13 @@ try {
 }catch(e){}
 
 if (gl && glreq) {
+	try {
+		document.getElementById('geolocat_click').value = 'Abfrage Läuft';
+	} catch (e) {}
 	gl.getCurrentPosition(displayPosition, displayError);
 } else {  
-	//alert("I'm sorry, but geolocation services are not supported by your browser.");  
+	try {
+		document.getElementById('geolocat_click').value = 'Fehler';
+		alert("Ihr Browser unterstützt diese Funktion leider nicht.");
+	} catch (e) {}  
 }

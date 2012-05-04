@@ -1,0 +1,99 @@
+<?php
+if ($_GET["logout"]){
+		$_POST["type"] = "logout";
+	}	
+ if ($_username){
+	?>		
+		<div id="subnavi">
+			<h2><?=t("Meine Server")?></h2>
+			<ul><?php 
+			$set = MINE_server_list($_username);
+			while( list ( $key, $val ) = each ( $set ) ){
+				echo "<li class='norm'><a href='main.php?load=edit_server&id=".$val["id"]."' >".$val["name"]."</a></li>";
+			}
+			?>
+			<li class="norm"><a href="main.php?load=edit_server"><i>-&gt; <?=t("Neuer Server")?></i></a></li>
+			</ul>
+		</div>
+<?php }?>
+<div id="content">
+<?php 
+
+switch ($_POST["type"]){
+	case "logout":
+		USER_logout();
+		echo t("sie wurden ausgelogt");
+		break;		
+	case "Password vergessen":
+		echo "Password Vergessen...<br /> Pech gehabt.<br /><br /> (Schicke mir ne Mail)";
+		break;
+		
+	case "reg2":
+		if ($_POST["Pass"] == $_POST["Pass2"]){
+			USER_register($_POST["name"], $_POST["Pass"], $_POST["mail"]);
+			echo t("Wilkommen")." ".$_username;
+			break;
+		}
+		echo t("Die Password wiederholung ist falsch")." <br />";
+	case "Registrieren":?>
+		<form method=post >
+			<h2><?=t("Nur für Serverbetreiber")?></h2>
+			<p><?=t("Eine Registrierung ist nur sinnvoll wenn Sie einen Minecraft Server betreiben und diesen hier veröffentlichen möchten.")?></p>
+			<input name=type value=reg2 type=hidden />
+			<table>
+				<tr><td><?=t("Username")?>: 		</td><td><input name=name /></td></tr>
+				<tr><td><?=t("Password")?>: 		</td><td><input name=Pass type=password /></td></tr>
+				<tr><td><?=t("Wiederholung")?>: 	</td><td><input name=Pass2 type=password /></td></tr>
+				<tr><td><?=t("E-Mail")?>: 			</td><td><input name=mail /> <?=t("(Bitte angeben)")?></td></tr>
+			</table>
+			<p><?=t("Mit der Registrierung stimme ich zu, dass ich nur meine Server eintrage. Wenn der Server nicht in meinem Besitz ist, muss ich eine explizite Genehmigung vom Besitzer vorweisen können.")?>
+			<br /><br />
+			<?=t("Ich Stimme zu, das alle Texte, Bilder und sonstige Angaben, die von mir eingespielt werden unter der CC-BY-SA Lizenz veröffentlicht werden können.")?></p>
+			<input type=submit value='<?=t("Zustimmen und Weiter")?>' />		
+		</form>	
+		<?php 
+		break;		
+	case "save_prof":
+		USER_update($_username, "page = '".$_POST["page"]."'");
+		echo t("Gespeichert");
+		break;		
+	case "profiel":
+		$data = USER_detail($_username);?>
+		<form method=post >
+			<input name=type value=save_prof type=hidden />
+			<textarea name="page" cols="50" rows="10"><?=$data["page"]?></textarea>
+			<input type=submit value='<?=t("Speichern")?>' />		
+		</form>	
+		<?php 
+		break;		
+		
+	case "Login":
+		if ($_username){
+			echo t("Wilkommen")." ".$_username;	
+			break;	
+		}else{
+			echo t("Login Gehlgeschlagen")."<br />";
+		}				
+	default:
+		if (!$_username){?>
+		<form method=post >
+			<table>
+			<tr><td><?=t("Username")?>:	</td><td><input name=name /></td></tr>
+			<tr><td><?=t("Password")?>:	</td><td><input name=pass type=password /><br />
+			<tr><td colspan="2">
+				<input name=type type=submit value=Login /> 
+				<input name=type type=submit value='Password vergessen' /> 
+				<input name=type type=submit value='Registrieren' />
+			</td></tr>
+			</table>
+			<?=t("zum login werden Cookies benötigt.")?>
+		</form>
+		<?php }else{ $data = USER_detail($_username);?>
+		<?=t("Wer bist du?")?>
+		<form method=post >
+			<input name=type value=save_prof type=hidden />
+			<textarea id="mce" name="page" cols="50" rows="8"><?=$data["page"]?></textarea>
+			<input type=submit value='Speichern' />		
+		</form>	
+		<?php }
+}

@@ -9,5 +9,8 @@ $config = array(
 	"database"	=> "osm",
 	"username"	=> "osm",
 	"password"	=> ""
+	),
+"sec"		=> array (
+	"mail"		=> ""
 	)
 );

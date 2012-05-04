@@ -6,6 +6,9 @@
  * (c) GPL
  */
 
+if (!(($_SESSION["user"]["group"] == "manager") OR ($_SESSION["user"]["group"] == "admin")))
+	error("Access Denied","Für diese Seite reichen Ihre rechte nicht aus");
+
 if ($_POST["reset"]){
 	$_SESSION['kml'] = false;
 }
@@ -76,7 +79,7 @@ switch ($_GET["show"]){
 		<div id="map" style="width: 100%; height: 85%; border: 1px solid black;" class="smallmap"></div>
 		<center>
 			<input type=button onclick="self.location.href='/geo_edit.html'" value="Zurück"/>
-			<input type=button onclick="self.location.href='/and_edit.html'" value="Fertig"/>
+			<input type=button onclick="self.location.href='/ant_edit.html'" value="Fertig"/>
 		</center>
 		<?php 
 		break;

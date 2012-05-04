@@ -95,14 +95,14 @@ function SQL_insert($tabel, $insert){
 			{
 				$abfrage = "`$key` = $val";
 			}else{
-				$abfrage = "`$key` = '$val'";
+				$abfrage = "`$key` = '".mysql_real_escape_string($val)."'";
 			}
 		}else{
 			if(is_int($val) or (substr($val, 0, 7) == 'ENCRYPT'))
 			{
 				$abfrage = $abfrage.", `$key` = $val";
 			}else{
-				$abfrage = $abfrage.", `$key` = '$val'";
+				$abfrage = $abfrage.", `$key` = '".mysql_real_escape_string($val)."'";
 			}
 		} 
 	}
@@ -123,14 +123,14 @@ function SQL_insert_update($tabel, $insert){
 			{
 				$abfrage = "`$key` = $val";
 			}else{
-				$abfrage = "`$key` = '$val'";
+				$abfrage = "`$key` = '".mysql_real_escape_string($val)."'";
 			}
 		}else{
 			if(is_int($val) or (substr($val, 0, 7) == 'ENCRYPT'))
 			{
 				$abfrage = $abfrage.", `$key` = $val";
 			}else{
-				$abfrage = $abfrage.", `$key` = '$val'";
+				$abfrage = $abfrage.", `$key` = '".mysql_real_escape_string($val)."'";
 			}
 		} 
 	}

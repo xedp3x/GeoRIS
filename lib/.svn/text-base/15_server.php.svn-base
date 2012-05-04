@@ -1,0 +1,21 @@
+<?php
+function SERVER_kommentar_add($serverid, $auth, $kommentar, $vote, $autor){
+	SQL_insert_update('kommentar',
+		array( 
+			"id"	=> $serverid,
+			"text"	=> $kommentar,
+			"vote"	=> $vote,
+			"autor"	=> $autor,
+			"auth"	=> $auth
+			
+		)
+	);	
+}
+
+function SERVER_kommentar_get($serverid, $auth){
+	return SQL_select_one('kommentar', "id = $serverid AND auth = '$auth'");	
+}
+
+function SERVER_kommentar_list($serverid){
+	return SQL_select_as_array('kommentar', "id = $serverid");	
+}

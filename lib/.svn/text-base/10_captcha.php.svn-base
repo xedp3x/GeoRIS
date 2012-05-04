@@ -1,0 +1,48 @@
+<?php
+
+function CAPTCHA_gen(){
+	$size_x = 70;
+	$size_y = 25;
+	
+	$zufallszahl = mt_rand("100000", "999999");
+	global $_CAPTCHA;
+	$_CAPTCHA = $zufallszahl;
+	$bild = imageCreate($size_x, $size_y);
+	imageColorAllocate($bild, 255, 255, 255);
+	
+	$farbe1 = mt_rand("0", "175");
+	$farbe2 = mt_rand("0", "175");
+	$farbe3 = mt_rand("0", "175");
+	
+	$rahmen = imageColorAllocate($bild, 0, 0, 0);
+	$farbe  = imageColorAllocate($bild, $farbe1, $farbe2, $farbe3);
+	
+	$alle_punkte = ($size_x * $size_y)/15;
+	
+	for ($zaehler = 0; $zaehler < $alle_punkte; $zaehler++) {
+	 $pos_x = mt_rand("0", $size_x);
+	 $pos_y = mt_rand("0", $size_y);
+	 imageSetPixel($bild, $pos_x, $pos_y, $farbe);
+	};
+	
+	imageRectangle($bild, 0, 0, $size_x-1, $size_y-1, $rahmen);
+	
+	$pos_x = 8;
+	$pos_y = 5;
+	
+	imageString($bild, 5, $pos_x, $pos_y, $zufallszahl, $farbe);
+	
+	function callback($buffer) 
+	{
+	  global $img;
+	  $img = $buffer;
+	}
+	global $img;
+	
+	ob_start("callback");
+	imagePNG($bild);
+	ob_end_flush();
+	imageDestroy($bild);
+	
+	return $img;
+}

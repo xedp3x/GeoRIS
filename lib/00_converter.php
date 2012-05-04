@@ -132,6 +132,13 @@ function array2edit($in, $border = true){
 	return $out;;
 }
 
+function stringbetween($text, $begin,$end){
+	$out = substr($text,(strpos($text,$begin)+strlen($begin)));
+	$out = substr($out ,0,strpos($out ,$end));
+	
+	
+	return $out;;
+}
 
 function DUMP($in){
 	echo "<pre>";

@@ -3,6 +3,41 @@ var lat = 40;
 var zoom = 5;
 var map, layer;
 
+
+OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
+		defaultHandlerOptions: {
+		'single': true,
+		'double': false,
+		'pixelTolerance': 0,
+		'stopSingle': false,
+		'stopDouble': false
+	},
+	
+	initialize: function(options) {
+		this.handlerOptions = OpenLayers.Util.extend(
+				{}, this.defaultHandlerOptions
+		);
+		OpenLayers.Control.prototype.initialize.apply(
+				this, arguments
+		); 
+		this.handler = new OpenLayers.Handler.Click(
+				this, {
+					'click': this.trigger
+				}, this.handlerOptions
+		);
+	}, 
+	
+	trigger: function(e) {
+		var lonlat = map.getLonLatFromViewPortPx(e.xy);
+		try {
+			document.getElementById('click_lat').value = lonlat.lat;
+			document.getElementById('click_lon').value = lonlat.lon;
+		} catch (e) { }
+	}
+	
+});
+
+
 function init(URL, la, lb, lc, ld){
 	var options = {
 			projection: new OpenLayers.Projection("EPSG:900913"),
@@ -41,23 +76,31 @@ function init(URL, la, lb, lc, ld){
 	);
 	//map.addLayer(ghyb);
 
-	map.addLayer(new OpenLayers.Layer.GML("GeoRIS", URL, 
-			{
-		format: OpenLayers.Format.KML, 
-		projection: map.displayProjection,
-		formatOptions: {
-		extractStyles: true, 
-		extractAttributes: true
+	if (URL != ""){
+		map.addLayer(new OpenLayers.Layer.GML("GeoRIS", URL, 
+				{
+			format: OpenLayers.Format.KML, 
+			projection: map.displayProjection,
+			formatOptions: {
+			extractStyles: true, 
+			extractAttributes: true
+		}
+				}));
+
+		selectControl = new OpenLayers.Control.SelectFeature(map.layers[1],
+				{onSelect: onFeatureSelect, onUnselect: onFeatureUnselect});
+		map.addControl(selectControl);
+		selectControl.activate();   
 	}
-			}));
-
-	selectControl = new OpenLayers.Control.SelectFeature(map.layers[1],
-			{onSelect: onFeatureSelect, onUnselect: onFeatureUnselect});
-
-	//map.addControl(new OpenLayers.Control.LayerSwitcher());
-	map.addControl(selectControl);
-	selectControl.activate();   
 	map.zoomToExtent(new OpenLayers.Bounds(la, lb, lc, ld ).transform(map.displayProjection, map.projection));
+	
+	
+	var click = new OpenLayers.Control.Click();
+    map.addControl(click);
+    click.activate();
+    
+    
+    //map.addControl(new OpenLayers.Control.MousePosition());
 }
 function onPopupClose(evt) {
 	selectControl.unselect(selectedFeature);

@@ -33,7 +33,9 @@ if ($_GET["unset"]){
 	
 <?php 
 	$set = USER_list();
-	while( list ( $key, $val ) = each ( $set ) ){?>
+	while( list ( $key, $val ) = each ( $set ) ){
+		$mail[] = $val["mail"];
+		?>
 		<tr>
 			<td><?=$val["mail"]?> <?=($val["pass"]==null?"(unregistriert)":"")?></td>
 			<td><?=$val["group"]?></td>
@@ -55,6 +57,8 @@ if ($_GET["unset"]){
 	Nach Änderungen muss sich der Betroffene neu Einloggen.
 </td><td>
 	Um einen Admin zu ernännen melde dich beim Serverbetreiber.
+</td><td>
+	<input type=button onclick="self.location.href='mailto:<?=implode(', ',$mail)?>'" value="Rundmail"/>
 </td></tr></table>
 	
 

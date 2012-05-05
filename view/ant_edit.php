@@ -9,7 +9,6 @@
 if (!(($_SESSION["user"]["group"] == "manager") OR ($_SESSION["user"]["group"] == "admin")))
 	error("Access Denied","Für diese Seite reichen Ihre rechte nicht aus");
 
-
 if ($_GET["delete"]){
 	$_GET["reset"] = true;
 	ANTRAG_delete($_GET["delete"]);
@@ -103,7 +102,7 @@ if (isset($_POST["name"])){
 			</tr>
 			<tr>
 				<td>Datum</td>
-				<td><input name="date" value="<?=$_SESSION["ant"]["date"]?>"/> Frist bis zur nächsten Anteilnahme</td>
+				<td><input name="date" size="22" value="<?=$_SESSION["ant"]["date"]?>"/> Datum der nächsten Einflussnahme</td>
 			</tr>
 			<tr>
 				<td>URL</td>
@@ -138,6 +137,9 @@ if (isset($_POST["name"])){
 			<center>
 				<input type=submit value="Übernehmen" />
 				<input type=button onclick="self.location.href='?reimport=true'" value="Reimport"/>
+				 -
+				<input type=button onclick="document.getElementById('iframe').src=document.getElementsByName('url')[0].value" value="Seite Anzeigen" />
+				<input type=button onclick="document.getElementById('iframe').src='show.html?req=session'" value="Karte Anzeigen" /> 
 			</center>
 		</form>	
 		<h2></h2>

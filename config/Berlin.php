@@ -64,5 +64,4 @@ $_templates[] = array(
 	// Plugin Settings
 	"url"	=> "http://www.berlin.de/ba-marzahn-hellersdorf/bvv-online/vo020.asp?VOLFDNR=",
 	"down"	=> "http://www.berlin.de/ba-marzahn-hellersdorf/bvv-online/"
-
 );

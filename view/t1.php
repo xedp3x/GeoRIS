@@ -1,21 +1,21 @@
+<?php 
 
-<style>
+$text = file_get_contents("/home/mario/allris.text");
 
-</style>
+$tmp = substr($text, strpos($text," ******"));
+$tmp = substr($tmp , strpos($tmp ,'Anlagen:'));
+$tmp = substr($tmp,0,strpos($tmp ,'=============='));
 
-<body style="height: 90%;">
-		<?=$LOGO; ?>
+$tmp = explode("                 ",$tmp);
 
-
-
-
-
-    <h1 id="title">GeoRIS Test "t2"</h1>
-     
-    <div id="map" style="width: 100%; height: 90%; border: 1px solid black;" class="smallmap"></div>
-
-
-
-</body>
-
-
+$date = 0;
+while( list ( $key, $val ) = each ( $tmp ) ){
+	$datum = substr($val,0,10);
+	if (preg_match('/^(\d{2}).(\d{2}).(\d{4})$/', $datum, $wert)){
+		$x = strtotime($datum);
+		if ($x){
+			if ($x > $date)
+				$date = $x; 
+		}
+	}
+}

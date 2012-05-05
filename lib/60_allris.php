@@ -58,6 +58,27 @@ class PL_ALLRIS
 			);
 		}
 		unset($out["link"][0]);
+		
+		
+		$tmp = substr($text, strpos($text," ******"));
+		$tmp = substr($tmp , strpos($tmp ,'Anlagen:'));
+		$tmp = substr($tmp,0,strpos($tmp ,'=============='));
+		
+		$tmp = explode(" ",$tmp);
+		
+		$date = 0;
+		while( list ( $key, $val ) = each ( $tmp ) ){
+			$datum = substr($val,0,10);
+			if (preg_match('/^(\d{2}).(\d{2}).(\d{4})$/', $datum, $wert)){
+				$x = strtotime($datum);
+				if ($x){
+					if ($x > $date)
+						$date = $x;
+				}
+			}
+		}
+		$out["date"] = date("Y-m-d H:i:s",$date);
+		
 
 		$tmp = substr($text, strpos($text,"========="));
 		$tmp = substr($tmp , strpos($tmp ,'?>')+2);
@@ -85,6 +106,7 @@ class PL_ALLRIS
 		$out["pad"] 	= str_replace('%id%',$id,$this->option["pad"]); 
 		$out["wiki"] 	= str_replace('%id%',$id,$this->option["wiki"]); 
 		$out["forum"] 	= str_replace('%id%',$id,$this->option["forum"]); 
+		
 		
 		return $out;
 	}

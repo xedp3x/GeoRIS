@@ -1,5 +1,4 @@
 <?php 
-
 if ($_SESSION["user"]["geolocat"]){
 	$border = array(
 		"lon_min" => $_SESSION["user"]["geolocat"]["lon"] - 0.01,
@@ -171,15 +170,16 @@ Ihr GeoRIS Team.";
 	}else{
 		
 		if ($_POST["template"])		$_SESSION["user"]["default"]["template"] = $_POST["template"]; 
-	
+		
+		if (isset($_POST["radius"]))$_SESSION["user"]["radius"] = $_POST["radius"];
+		
 		if ($_POST["save"]){
 			USER_set(array(
 				"mail" 		=> $_SESSION["user"]["mail"],
-				"radius"	=> $_SESSION["user"]["mail"],
+				"radius"	=> $_SESSION["user"]["radius"],
 				"lat"		=> $_SESSION["user"]["geolocat"]["lat"],
 				"lon"		=> $_SESSION["user"]["geolocat"]["lon"],
 				"template"	=> $_SESSION["user"]["default"]["template"]
-				
 			)); ?>
 			
 		<span style="font-size: 16;">
@@ -189,14 +189,16 @@ Ihr GeoRIS Team.";
 		<?php }else{?>
 		
 		<div style="width: 45%; float:left;">
-			<form method="post">
+			<form method="post" id=form>
 			<table style="width: 99%" >
 				<tr>
-					<td colspan="2"><h2>Mein Wohnort:</h2></td>
+					<td colspan="2"><h2>Mein Wohnort</h2></td>
 				</tr>
 				<tr>
 					<td>Längengrad</td>
-					<td><input name=lat id="click_lat" value="<?=($_SESSION["user"]["geolocat"]["lat"]<>52.517?$_SESSION["user"]["geolocat"]["lat"]:"")?>"/></td>
+					<td>
+						<input name=lat id="click_lat" value="<?=($_SESSION["user"]["geolocat"]["lat"]<>52.517?$_SESSION["user"]["geolocat"]["lat"]:"")?>"/>
+					</td>
 				</tr>
 				<tr>
 					<td>Breitengrad</td>
@@ -204,13 +206,38 @@ Ihr GeoRIS Team.";
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type=button onclick="loadScript('/js/geolocat.js')" value="Erkennen" id="geolocat_click"/></td>
+					<td>
+						<input type=button onclick="loadScript('/js/geolocat.js')" value="Erkennen" id="geolocat_click"/>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><br /></td>
+				</tr>
+				<tr>
+					<td>Informiere mich über Anträge im Radius von<br />
+					<span style="font-size: 85%">(Diese Funktion befindet sich noch in der Testphase)</span></td>
+					<td>
+						<select name="radius">
+						  <option <?=$_SESSION["user"]["radius"]==  0?"selected='selected'":""?> value="0">- Keine -</option>
+						  <option <?=$_SESSION["user"]["radius"]==0.1?"selected='selected'":""?> value="0.1">100 m</option>
+						  <option <?=$_SESSION["user"]["radius"]==0.5?"selected='selected'":""?> value="0.5">500 m</option>
+						  <option <?=$_SESSION["user"]["radius"]==  1?"selected='selected'":""?> value="1">1 km</option>
+						  <option <?=$_SESSION["user"]["radius"]==  2?"selected='selected'":""?> value="2">2 km</option>
+						  <option <?=$_SESSION["user"]["radius"]==  4?"selected='selected'":""?> value="4">4 km</option>
+						  <option <?=$_SESSION["user"]["radius"]==  6?"selected='selected'":""?> value="6">6 km</option>
+						  <option <?=$_SESSION["user"]["radius"]==  8?"selected='selected'":""?> value="8">8 km</option>
+						  <option <?=$_SESSION["user"]["radius"]== 10?"selected='selected'":""?> value="10">10 km</option>
+						  <option <?=$_SESSION["user"]["radius"]== 15?"selected='selected'":""?> value="15">15 km</option>
+						  <option <?=$_SESSION["user"]["radius"]== 30?"selected='selected'":""?> value="30">30 km</option>
+						</select>
+					</td>
 				</tr>
 			
 			<?php if (($_SESSION["user"]["group"] == "manager") OR ($_SESSION["user"]["group"] == "admin")){?>
 			
 				<tr>
-					<td colspan="2"><h2>Manager Einstellungen:</h2></td>
+					<td colspan="2"><br /><h2>Manager Einstellungen:</h2></td>
 				</tr>
 				<tr>
 					<td>Default Template:</td>

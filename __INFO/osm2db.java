@@ -22,7 +22,7 @@ public class osm2db
 
 		if (argv.length != 1) 
 		{
-			System.err.println ("Usage: osm2sql filename");
+			System.err.println ("Usage: osm2db filename");
 			System.exit (1);
 		}
 		System.out.println("set character set utf8;");

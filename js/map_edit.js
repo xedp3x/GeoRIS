@@ -76,7 +76,7 @@ function init_edit(URL, la, lb, lc, ld){
 	map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.MousePosition());
 	map.addControl(new OpenLayers.Control.EditingToolbar(vectors));
-
+	
 
 	map.zoomToExtent(new OpenLayers.Bounds(la, lb, lc, ld ).transform(map.displayProjection, map.projection));
 }

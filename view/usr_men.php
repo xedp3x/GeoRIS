@@ -58,7 +58,7 @@ if ($_GET["unset"]){
 </td><td>
 	Um einen Admin zu ernännen melde dich beim Serverbetreiber.
 </td><td>
-	<input type=button onclick="self.location.href='mailto:<?=implode(', ',$mail)?>'" value="Rundmail"/>
+	<input type=button onclick="self.location.href='mailto:<?=implode(',',$mail)?>'" value="Rundmail"/>
 </td></tr></table>
 	
 

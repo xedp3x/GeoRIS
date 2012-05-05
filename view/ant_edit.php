@@ -35,9 +35,11 @@ if ($_GET["reimport"]){
 }
 
 if ($_GET["renew"]){
-	$id = $_SESSION["check"]["site"]["old"][$_GET["renew"]]["ant"];
+	$id 	= $_SESSION["check"]["site"]["old"][$_GET["renew"]]["ant"];
+	$mode	= $_SESSION["check"]["site"]["old"][$_GET["renew"]]["mode"];
 	$_SESSION["ant"] = $_SESSION["check"]["site"]["new"][$_GET["renew"]];
-	$_SESSION["ant"]["ant"] = $id;
+	$_SESSION["ant"]["ant"] 	= $id;
+	$_SESSION["ant"]["mode"] 	= $mode;
 	$_GET["auto"] = true;
 }
 
@@ -93,6 +95,14 @@ if (isset($_POST["name"])){
 				<td><input name="titel" style="width: 100%;" maxlength="200" value="<?=$_SESSION["ant"]["titel"]?>"/></td>
 			</tr>
 			<tr>
+				<td>Fortschritt</td>
+				<td><select name="mode" style="width: 100%;">
+					  <option <?=$_SESSION["ant"]["mode"]=="antrag"?"selected='selected'":""?> value="antrag">Antrag</option>
+					  <option <?=$_SESSION["ant"]["mode"]=="umsetzung"?"selected='selected'":""?> value="umsetzung">Umsetzung</option>
+					  <option <?=$_SESSION["ant"]["mode"]=="abgeschlossen"?"selected='selected'":""?> value="abgeschlossen">Abgeschlossen</option>
+					</select></td>
+			</tr>
+			<tr>
 				<td>Status</td>
 				<td><input name="status" style="width: 100%;" maxlength="200" value="<?=$_SESSION["ant"]["status"]?>"/></td>
 			</tr>
@@ -136,10 +146,7 @@ if (isset($_POST["name"])){
 			</table>
 			<center>
 				<input type=submit value="Übernehmen" />
-				<input type=button onclick="self.location.href='?reimport=true'" value="Reimport"/>
-				 -
-				<input type=button onclick="document.getElementById('iframe').src=document.getElementsByName('url')[0].value" value="Seite Anzeigen" />
-				<input type=button onclick="document.getElementById('iframe').src='show.html?req=session'" value="Karte Anzeigen" /> 
+				<input type=button onclick="self.location.href='?reimport=true'" value="Reimport"/> 
 			</center>
 		</form>	
 		<h2></h2>

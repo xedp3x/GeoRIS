@@ -70,7 +70,27 @@ function ANTRAG_load($id){
 	
 }
 
-
 function ANTRAG_list($filter = false){
 	return SQL_select_as_array('antrag', $filter,"*","`ant` DESC");
+}
+
+function ANTRAG_bygeo($lat, $lon ,$rad){
+	return SQL_query_as_array("Select geb.ent as ent, antrag.* from antrag, (
+	Select gebiet.ant, pkt.ent as ent from gebiet, (
+		select gebiet_id, (
+				(($lat-lat) *  ($lat-lat) * 12392) +
+				(($lon-lon) *  ($lon-lon) *  4655)
+			) AS ent from punkt where 
+			(
+				(($lat-lat) *  ($lat-lat) * 12392) +
+				(($lon-lon) *  ($lon-lon) *  4655) 
+			) < ".($rad*$rad)."
+			Group by gebiet_id
+			Order By Ent ASC
+		) as pkt
+		where gebiet.gebiet_id = pkt.gebiet_id
+		Group by ant
+	) as geb
+	where geb.ant = antrag.ant
+	Order by ent asc;");
 }

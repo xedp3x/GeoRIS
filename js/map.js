@@ -29,6 +29,10 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 	
 	trigger: function(e) {
 		var lonlat = map.getLonLatFromViewPortPx(e.xy);
+		lonlat.transform(
+					map.getProjectionObject(),
+					new OpenLayers.Projection("EPSG:4326")
+				);			
 		try {
 			document.getElementById('click_lat').value = lonlat.lat;
 			document.getElementById('click_lon').value = lonlat.lon;
@@ -100,7 +104,7 @@ function init(URL, la, lb, lc, ld){
     click.activate();
     
     
-    map.addControl(new OpenLayers.Control.MousePosition());
+    //map.addControl(new OpenLayers.Control.MousePosition());
 }
 function onPopupClose(evt) {
 	selectControl.unselect(selectedFeature);

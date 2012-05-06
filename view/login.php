@@ -172,7 +172,10 @@ Ihr GeoRIS Team.";
 		if ($_POST["template"])		$_SESSION["user"]["default"]["template"] = $_POST["template"]; 
 		
 		if ($_POST["save"]){
-			$_SESSION["user"]["radius"] = $_POST["radius"];
+			$_SESSION["user"]["radius"] 			= $_POST["radius"];
+			$_SESSION["user"]["geolocat"]["lat"]	= $_POST["lat"];
+			$_SESSION["user"]["geolocat"]["lon"]	= $_POST["lon"];
+			
 			
 			USER_set(array(
 				"mail" 		=> $_SESSION["user"]["mail"],

@@ -10,6 +10,7 @@ include '_lib.php';
     
     <script src="http://maps.google.com/maps/api/js?v=3.6&amp;sensor=false"></script>
     <script src="/js/OpenLayers.js"></script>
+    <script src="/js/OpenLayers.php" type="text/javascript"></script>
     <script src="/js/Firebug/firebug.js"></script>
     <script src="/js/map.js"></script>
     <script src="/js/map_edit.js"></script>

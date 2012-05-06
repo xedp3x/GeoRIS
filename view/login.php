@@ -269,6 +269,7 @@ Ihr GeoRIS Team.";
 			</table>
 			</form>
 		</div>	
+		<input type=hidden id="no_click" />
 		<div id="map" style="width: 50%; height: 90%; border: 1px solid black; float:left;" class="smallmap"></div>	
 		<table><tr><td><center>
 	<?php } }?>

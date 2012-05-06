@@ -84,8 +84,8 @@ class PL_ALLRIS
 		$tmp = substr($tmp , strpos($tmp ,'?>')+2);
 		$tmp = substr($tmp,0,strpos($tmp ,'<?'));
 		
-		if (strpos($tmp,"Begründung:")<> 0)
-			$tmp = substr($tmp,0,strpos($tmp ,'Begründung:'));
+		//if (strpos($tmp,"Begründung:")<> 0)
+		//	$tmp = substr($tmp,0,strpos($tmp ,'Begründung:'));
 		
 		$tmp = explode("\n",$tmp);
 		for ($i = 0; $i < count($tmp);$i++){

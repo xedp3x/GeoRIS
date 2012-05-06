@@ -3,6 +3,25 @@ var lat = 40;
 var zoom = 5;
 var map, layer;
 
+var popup;
+
+
+var popupreq=false;
+if (!popupreq && typeof XMLHttpRequest!='undefined') {
+	try {
+		popupreq = new XMLHttpRequest();
+	} catch (e) {
+		popupreq=false;
+	}
+}
+if (!popupreq && window.createRequest) {
+	try {
+		popupreq = window.createRequest();
+	} catch (e) {
+		popupreq=false;
+	}
+}
+
 
 OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
 	defaultHandlerOptions: {
@@ -37,6 +56,28 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 			document.getElementById('click_lat').value = lonlat.lat;
 			document.getElementById('click_lon').value = lonlat.lon;
 		} catch (e) { }
+		
+		
+		if (document.getElementById("no_click") == null){
+			popupreq.open("GET", "/api.php?modul=find&lat="+lonlat.lat+"&lon="+lonlat.lon+"&zoom="+this.map.zoom ,true);
+			popupreq.onreadystatechange=function() {
+				if (popupreq.readyState==4) {
+					try {
+						popup.destroy();
+					} catch (e) {}
+					
+					if (popupreq.status == 200){
+						popup = new OpenLayers.Popup.FramedCloud("chicken", 
+								map.getLonLatFromViewPortPx(e.xy),
+								new OpenLayers.Size(100,100),
+								popupreq.responseText,
+								null, true, null);
+						map.addPopup(popup);	
+					}
+				}
+			}
+			popupreq.send(null);
+		}
 	}
 	
 });
@@ -91,10 +132,6 @@ function init(URL, la, lb, lc, ld){
 		}
 				}));
 
-		selectControl = new OpenLayers.Control.SelectFeature(map.layers[1],
-				{onSelect: onFeatureSelect, onUnselect: onFeatureUnselect});
-		map.addControl(selectControl);
-		selectControl.activate();   
 	}
 	map.zoomToExtent(new OpenLayers.Bounds(la, lb, lc, ld ).transform(map.displayProjection, map.projection));
 	
@@ -103,6 +140,7 @@ function init(URL, la, lb, lc, ld){
     map.addControl(click);
     click.activate();
     
+    //map.addControl(new OpenLayers.Control.LayerSwitcher());
     
     //map.addControl(new OpenLayers.Control.MousePosition());
 }
@@ -111,13 +149,6 @@ function onPopupClose(evt) {
 }
 function onFeatureSelect(feature) {
 	selectedFeature = feature;
-	try{
-		var test = this.events.getMousePosition();
-		var lonlat = map.getLonLatFromViewPortPx(this.events.getMousePosition(this.events));
-		
-		
-		sdflsdf.asdsada('');
-	}catch (e){ }
 	popup = new OpenLayers.Popup.FramedCloud("chicken", 
 			feature.geometry.getBounds().getCenterLonLat(),
 			new OpenLayers.Size(100,100),

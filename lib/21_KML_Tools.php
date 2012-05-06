@@ -38,10 +38,15 @@ function KML_border($in){
 	return $out;
 }
 
-function KML_GET(){
+function KML_GET($id = false){
 	global $_GET;
 	global $kml;
 	global $_SESSION;
+	
+	if ($id){
+		$kml = KML_load($id);
+		return;
+	}
 	
 	switch ($_GET["req"]){
 		case "session":

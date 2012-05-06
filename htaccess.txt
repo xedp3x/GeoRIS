@@ -1,1 +1,1 @@
-/var/www/GeoRIS/.htaccess
+.htaccess

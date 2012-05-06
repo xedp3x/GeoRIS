@@ -62,6 +62,11 @@ function ANTRAG_delete($id){
 	return SQL_delete('antrag',"ant = $id");
 }
 
+function ANTRAG_get($id){	
+	return SQL_select_one('antrag',"ant = $id");
+}
+
+
 function ANTRAG_load($id){	
 	global $_SESSION;
 	

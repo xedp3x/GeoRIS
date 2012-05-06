@@ -5,6 +5,8 @@ RewriteEngine on
 RewriteRule ^404.html$ ./main.php?load=text&text=404 [PT,QSA]
 RewriteRule ^sitemap.xml$ ./sitemap.php [PT,QSA]
 
+RewriteRule ^(.*)_([0-9]+).html$ ./main.php?load=antrag&ref=$2 [PT,QSA]
+
 RewriteRule ^(.*)/(.*).html$ ./main.php?load=$1&ref=$2 [PT,QSA]
 RewriteRule ^(.*).html$ ./main.php?load=$1 [PT,QSA]
 

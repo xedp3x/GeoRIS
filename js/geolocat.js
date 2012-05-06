@@ -29,17 +29,15 @@ function displayPosition(position) {
 
 	glreq.open("GET", "/api.php?modul=geolocat&lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&time="+position.timestamp ,true);
 	glreq.onreadystatechange=function() {
-		if (glreq.readyState==4) {
-			if (glreq.responseText != "OK"){
-				//alert(glreq.responseText);
-			}
-		}
 	}
 	glreq.send(null);	
 }
 
 function displayError(positionError) {
-	//alert("error")
+	try {
+		document.getElementById('geolocat_click').value = 'Fehler';
+		alert("Ihr Browser unterstützt diese Funktion leider nicht.");
+	} catch (e) {}  
 }
 
 try {

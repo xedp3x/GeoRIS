@@ -57,17 +57,16 @@ function init_edit(URL, la, lb, lc, ld){
 	map.addLayer(ghyb);
 	
 	
-
 	if (URL != ""){
 		map.addLayer(new OpenLayers.Layer.GML("GeoRIS", URL, 
-				{
-			format: OpenLayers.Format.KML, 
-			projection: map.displayProjection,
-			formatOptions: {
-			extractStyles: true, 
-			extractAttributes: true
-		}
-				}));
+			{
+				format: OpenLayers.Format.KML, 
+				projection: map.displayProjection,
+				formatOptions: {
+				extractStyles: true, 
+				extractAttributes: true
+			}
+		}));
 
 	}
 	vectors = new OpenLayers.Layer.Vector("Vector Layer");
@@ -89,15 +88,9 @@ function printBr(element, index, array) {
 	
 	var str = geojson.write(element, false);
 	document.getElementById('map_edit').innerHTML = document.getElementById('map_edit').innerHTML + "<textarea name='map_edit[]'>"+str+"</textarea>";
-	
-	//document.write("<br />[" + index + "] is " + element ); 
 }
 
-
-
 function get_map() {
-	
 	vectors.features.forEach(printBr);
-	
 	return true;
 }

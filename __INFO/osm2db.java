@@ -1,9 +1,12 @@
-// Parses .osm-file into database-input
-//
-// Usage: osm2sql filename
-// Output on Std-Out.
-//
-// 2008-09-27 Andreas "goblor" Hahn
+/*
+ * Holt alle relevanten information aus der .osm Datei
+ * 
+ * Koordinaten werden nicht gespeiert
+ * 
+ * 
+ * Abgeleitet vom osm2mysql von
+ * 	2008-09-27 Andreas "goblor" Hahn
+ */
 
 import java.io.*;
 import javax.xml.parsers.SAXParserFactory;  

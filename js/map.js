@@ -5,7 +5,7 @@ var map, layer;
 
 
 OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
-		defaultHandlerOptions: {
+	defaultHandlerOptions: {
 		'single': true,
 		'double': false,
 		'pixelTolerance': 0,
@@ -100,13 +100,20 @@ function init(URL, la, lb, lc, ld){
     click.activate();
     
     
-    //map.addControl(new OpenLayers.Control.MousePosition());
+    map.addControl(new OpenLayers.Control.MousePosition());
 }
 function onPopupClose(evt) {
 	selectControl.unselect(selectedFeature);
 }
 function onFeatureSelect(feature) {
 	selectedFeature = feature;
+	try{
+		var test = this.events.getMousePosition();
+		var lonlat = map.getLonLatFromViewPortPx(this.events.getMousePosition(this.events));
+		
+		
+		sdflsdf.asdsada('');
+	}catch (e){ }
 	popup = new OpenLayers.Popup.FramedCloud("chicken", 
 			feature.geometry.getBounds().getCenterLonLat(),
 			new OpenLayers.Size(100,100),

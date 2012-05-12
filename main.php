@@ -6,6 +6,7 @@ include '_lib.php';
   <head>
   	<title>Geo-RIS</title>
     <link rel="stylesheet" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/css/calendar.css" type="text/css" />
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
     
     <script src="http://maps.google.com/maps/api/js?v=3.6&amp;sensor=false"></script>
@@ -15,6 +16,10 @@ include '_lib.php';
     <script src="/js/map.js"></script>
     <script src="/js/map_edit.js"></script>
     <script src="/js/scripte.js"></script>
+    
+    <script src="/js/mootools.js"></script>
+    <script src="/js/calendar.js"></script>
+    
     <?if(!$_SESSION["user"]["geolocat"]){?>
     	<script src="/js/geolocat.js"></script>
     <?}?>

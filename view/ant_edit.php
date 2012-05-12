@@ -29,17 +29,13 @@ if ($_POST["create"]){
 }
 
 if ($_GET["reimport"]){
-	$id = $_SESSION["ant"]["ant"];
-	$_SESSION["ant"] = ANTRAG_create($_SESSION["ant"]["template"],$_SESSION["ant"]["id"]);
-	$_SESSION["ant"]["ant"] = $id;
+	$_SESSION["ant"] = ANTRAG_create($_SESSION["ant"]["template"],$_SESSION["ant"]["id"],$_SESSION["ant"]);
 }
 
 if ($_GET["renew"]){
 	$id 	= $_SESSION["check"]["site"]["old"][$_GET["renew"]]["ant"];
-	$mode	= $_SESSION["check"]["site"]["old"][$_GET["renew"]]["mode"];
 	$_SESSION["ant"] = $_SESSION["check"]["site"]["new"][$_GET["renew"]];
 	$_SESSION["ant"]["ant"] 	= $id;
-	$_SESSION["ant"]["mode"] 	= $mode;
 	$_GET["auto"] = true;
 }
 
@@ -48,7 +44,12 @@ if (isset($_POST["name"])){
 }
 
 ?>
-<body>
+<body onload=" 
+			myCal  = new Calendar({ date:  'Y-m-d' }, { direction: 0, tweak: {x: 6, y: 0} });
+			myCal1 = new Calendar({ date1: 'Y-m-d' }, { direction: 0, tweak: {x: 6, y: 0} });
+			myCal2 = new Calendar({ date2: 'Y-m-d' }, { direction: 0, tweak: {x: 6, y: 0} });
+			myCal3 = new Calendar({ date3: 'Y-m-d' }, { direction: 0, tweak: {x: 6, y: 0} });
+			">
 	<?=$LOGO; ?>
 	<h1 id="title">Anträge bearbeiten</h1>
 	<?php
@@ -96,11 +97,19 @@ if (isset($_POST["name"])){
 			</tr>
 			<tr>
 				<td>Fortschritt</td>
-				<td><select name="mode" style="width: 100%;">
-					  <option <?=$_SESSION["ant"]["mode"]=="antrag"?"selected='selected'":""?> value="antrag">Antrag</option>
-					  <option <?=$_SESSION["ant"]["mode"]=="umsetzung"?"selected='selected'":""?> value="umsetzung">Umsetzung</option>
-					  <option <?=$_SESSION["ant"]["mode"]=="abgeschlossen"?"selected='selected'":""?> value="abgeschlossen">Abgeschlossen</option>
-					</select></td>
+				<td><table><tr>
+					<td>Antragsstellung</td>
+					<td>Beschluss</td>
+					<td>Abgeschlossen</td>
+					<td></td>
+					<td>Nächster Termin</td>
+				</tr><tr>
+					<td><input id="date1" name="date_antrag" type="text" 		value="<?=(substr($_SESSION["ant"]["date_antrag"],0,10)<>'0000-00-00'?substr($_SESSION["ant"]["date_antrag"],0,10):'')?>"/></td>
+					<td><input id="date2" name="date_beschluss" type="text" 	value="<?=(substr($_SESSION["ant"]["date_beschluss"],0,10)<>'0000-00-00'?substr($_SESSION["ant"]["date_beschluss"],0,10):'')?>"/></td>
+					<td><input id="date3" name="date_ende" type="text" 			value="<?=(substr($_SESSION["ant"]["date_ende"],0,10)<>'0000-00-00'?substr($_SESSION["ant"]["date_ende"],0,10):'')?>"/></td>
+					<td style="width: 50px;"></td>
+					<td><input id="date" name="date" size="22" 					value="<?=(substr($_SESSION["ant"]["date"],0,10)<>'0000-00-00'?substr($_SESSION["ant"]["date"],0,10):'')?>"/></td>
+				</tr></table></td>
 			</tr>
 			<tr>
 				<td>Status</td>
@@ -109,10 +118,6 @@ if (isset($_POST["name"])){
 			<tr>
 				<td>Art</td>
 				<td><input name="art" style="width: 100%;" maxlength="200" value="<?=$_SESSION["ant"]["art"]?>"/></td>
-			</tr>
-			<tr>
-				<td>Datum</td>
-				<td><input name="date" size="22" value="<?=$_SESSION["ant"]["date"]?>"/> Datum der nächsten Einflussnahme</td>
 			</tr>
 			<tr>
 				<td>URL</td>

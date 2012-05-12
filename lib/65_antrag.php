@@ -1,7 +1,7 @@
 
 <?php
 
-function ANTRAG_create($template, $id){
+function ANTRAG_create($template, $id,$old = array()){
 	global $_templates;
 	
 	$set = $_templates;
@@ -14,12 +14,12 @@ function ANTRAG_create($template, $id){
 		error("Antrag_create","Das Template '$template' konte nicht gefunden werden!");
 	}
 	
-	return $PL->get_by_id($id);
+	return $PL->get_by_id($id,$old);
 }
 
 
 function ANTRAG_save($ant, $kml){
-	$tosave = array("ant","template","id","name","titel","status","art","version","text","url","date","pad","wiki","forum");
+	$tosave = array("ant","template","id","name","titel","status","art","version","text","url","date","pad","wiki","forum","date_antrag","date_beschluss","date_ende");
 	
 	$set = $ant;
 	while( list ( $key, $val ) = each ( $set ) ){

@@ -2,10 +2,10 @@
 //Grundkonfiguration
 $config = array(
 "mysql"		=> array (
-	"host"		=> "192.168.178.250",
+	"host"		=> "127.0.0.1",
 	"database"	=> "osm",
 	"username"	=> "osm",
-	"password"	=> ""
+	"password"	=> "osm"
 	),
 "sec"		=> array (
 	"mail"		=> ""

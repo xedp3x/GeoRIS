@@ -133,11 +133,15 @@ function array2edit($in, $border = true){
 }
 
 function stringbetween($text, $begin,$end){
+	$a = strpos($text,$begin);
+	
 	$out = substr($text,(strpos($text,$begin)+strlen($begin)));
+	
+	$e = strpos($out ,$end);
+	
 	$out = substr($out ,0,strpos($out ,$end));
 	
-	
-	return $out;;
+	return trim($out);
 }
 
 function DUMP($in){

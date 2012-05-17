@@ -43,11 +43,26 @@ function KML_by_way($list){
 }
 
 function KML_load($ant = false){
+	
+	$select = "*,
+if( 	date_ende <  CURRENT_TIMESTAMP AND
+	date_ende != '0000-00-00 00:00:00' AND
+	date_ende is not null
+	,'ende',
+if( 	date_beschluss <= CURRENT_TIMESTAMP AND
+	date_beschluss != '0000-00-00 00:00:00' AND
+	date_beschluss is not null
+	,'beschluss',
+if(	date_antrag >= CURRENT_TIMESTAMP
+	,'future',
+	'antrag'
+))) AS state_at";
+	
 
 	if ($ant){
-		$aset = SQL_select_as_array("antrag", "ant = $ant" );
+		$aset = SQL_select_as_array("antrag", "ant = $ant", $select );
 	}else{
-		$aset = SQL_select_as_array("antrag");
+		$aset = SQL_select_as_array("antrag", false , $select);
 	}
 	
 	while( list ( $key_x2, $antrag ) = each ( $aset ) ){

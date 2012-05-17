@@ -6,8 +6,10 @@
  * (c) GPL
  */
 
-if (!(($_SESSION["user"]["group"] == "manager") OR ($_SESSION["user"]["group"] == "admin")))
+if (!(($_SESSION["user"]["group"] == "manager") OR ($_SESSION["user"]["group"] == "admin"))){
+	?><body><?=$LOGO; ?><h1 id="title">Access Denied</h1><?
 	error("Access Denied","Für diese Seite reichen Ihre rechte nicht aus");
+}
 
 if (!$_GET["filter"])
 	$_GET["filter"] = $_SESSION["user"]["default"]["template"];

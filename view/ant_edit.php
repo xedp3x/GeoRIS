@@ -6,8 +6,10 @@
  * (c) GPL
  */
 
-if (!(($_SESSION["user"]["group"] == "manager") OR ($_SESSION["user"]["group"] == "admin")))
+if (!(($_SESSION["user"]["group"] == "manager") OR ($_SESSION["user"]["group"] == "admin"))){
+	?><body><?=$LOGO; ?><h1 id="title">Access Denied</h1><?
 	error("Access Denied","Für diese Seite reichen Ihre rechte nicht aus");
+}
 
 if ($_GET["delete"]){
 	$_GET["reset"] = true;
@@ -113,7 +115,8 @@ if (isset($_POST["name"])){
 			</tr>
 			<tr>
 				<td>Status</td>
-				<td><input name="status" style="width: 100%;" maxlength="200" value="<?=$_SESSION["ant"]["status"]?>"/></td>
+				<td><input name="sta
+				tus" style="width: 100%;" maxlength="200" value="<?=$_SESSION["ant"]["status"]?>"/></td>
 			</tr>
 			<tr>
 				<td>Art</td>

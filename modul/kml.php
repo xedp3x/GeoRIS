@@ -10,7 +10,7 @@
 KML_GET();
 
 
-if ($kml["data"]){
+if (!$kml){
 	header("HTTP/1.0 500 No Data");
 	die('No Data Selected');
 }

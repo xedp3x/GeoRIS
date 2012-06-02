@@ -1,7 +1,7 @@
 <?php
 
 $_templates[] = array(
-	"id" 	=> "none", 		// Eindeutige ID vom Template
+	"id" 	=> "none", 			// Eindeutige ID vom Template
 	"type"	=> "PL_NONE",		// Plugin Name
 	"name"	=> "Leere Seite",	// Anzeigenanme	
 

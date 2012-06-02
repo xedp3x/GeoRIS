@@ -19,9 +19,11 @@ if ($_GET["logout"]){
 	$_SESSION = Array();
 	?>
 	<body onload="self.location.href='?'">
-		<?=$LOGO; ?>
-		<h1 id="title">Benutzer</h1>
-	<table border="0" cellpadding="0" cellspacing="0" width="100%" height="90%"><tr><td align="center" valign="middle"><center>
+		<a href='?'>Weiter . . . </a>
+	</body>
+	</html>
+	<?php die('');?>
+
 <?php }elseif ($_POST["login"]){
 	if (!USER_login($_POST["email"],$_POST["pass"])){?>
 	<body>
@@ -31,9 +33,10 @@ if ($_GET["logout"]){
 	<big>Login fehlgeschlagen!</big><br /><br /><br />
 <?php }else{?>
 	<body onload="self.location.href='?'">
-		<?=$LOGO; ?>
-		<h1 id="title">Benutzer</h1>
-	<table border="0" cellpadding="0" cellspacing="0" width="100%" height="90%"><tr><td align="center" valign="middle"><center>
+		<a href='?'>Weiter . . . </a>
+	</body>
+	</html>
+	<?php die('');?>
 <?php }
 }elseif (!$_SESSION["user"]["group"]){?>
 <body>

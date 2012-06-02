@@ -134,12 +134,15 @@ function array2edit($in, $border = true){
 
 function stringbetween($text, $begin,$end){
 	$a = strpos($text,$begin);
-	
-	$out = substr($text,(strpos($text,$begin)+strlen($begin)));
+	if ($a ){
+		$out = substr($text,($a+strlen($begin)));
+	}else{
+		$out = $text;
+	}
 	
 	$e = strpos($out ,$end);
-	
-	$out = substr($out ,0,strpos($out ,$end));
+	if ( $e )
+		$out = substr($out ,0,strpos($out ,$end));
 	
 	return trim($out);
 }

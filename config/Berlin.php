@@ -65,3 +65,15 @@ $_templates[] = array(
 	"url"	=> "http://www.berlin.de/ba-marzahn-hellersdorf/bvv-online/vo020.asp?VOLFDNR=",
 	"down"	=> "http://www.berlin.de/ba-marzahn-hellersdorf/bvv-online/"
 );
+
+$_templates[] = array(
+        "id"    => "BE_FK_ALLRIS",              // Eindeutige ID vom Template
+        "type"  => "PL_ALLRIS",                 // Plugin Name
+        "name"  => "BE X-Hain Allris",    	// Anzeigenanme
+
+        // Plugin Settings
+        "url"   => "http://www.berlin.de/ba-friedrichshain-kreuzberg/bvv-online/vo020.asp?VOLFDNR=",
+        "down"  => "http://www.berlin.de/ba-friedrichshain-kreuzberg/bvv-online/"
+);
+
+

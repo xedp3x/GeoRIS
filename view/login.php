@@ -103,7 +103,7 @@ if ($_GET["c"]){
 
 Um Ihre Mailadresse zu bestätigen öffnen Sie bitte folgenden Link:
 
-http://piratenradar.de/login.html?c=".md5($config["sec"]["mail"].$_POST["email"])."&e=".urlencode($_POST["email"])."
+http://georis.tk/login.html?c=".md5($config["sec"]["mail"].$_POST["email"])."&e=".urlencode($_POST["email"])."
 
 Wenn diese Anfrage nicht von Ihnen kam können Sie diese Mail einfach Löschen.
 

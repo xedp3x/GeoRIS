@@ -14,7 +14,8 @@ if (count($set) > 0){
 		<tr onclick="self.location.href='/<?=urlencode(
 			preg_replace("/[^a-zA-Z0-9äöüÄÖÜß():]/", "-", 
 			$val["titel"])
-			)?>_<?=$val["ant"]?>.html';">
+			)?>_<?=$val["ant"]?>.html';"
+			style="cursor: hand; cursor: pointer;">
 			<td><?=$val["name"]?></td>
 			<td>    </td>
 			<td><?=$val["titel"]?></td>

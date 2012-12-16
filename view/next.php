@@ -1,6 +1,18 @@
-<?php
+<?php 
+/*
+ * Umkreissuche
+ * 
+ * (A) Mario XEdP3X
+ * (c) GPL
+ */
 
-$set = ANTRAG_bygeo($_GET["lat"],$_GET["lon"],1);
+?>
+  <body onload="init('/session.kml?uni=<?=time();?>',<?=$kml["border"]["lon_min"]?> , <?=$kml["border"]["lat_min"]?> , <?=$kml["border"]["lon_max"]?> , <?=$kml["border"]["lat_max"]?> )">
+		<?=$LOGO; ?>
+
+    <h1 id="title">In der Nähe gibt es:</h1>
+<?php      
+$set = ANTRAG_bygeo($_GET["lat"],$_GET["lon"],20);
 
 if (count($set) > 0){
 	//DUMP($set);?>
@@ -22,12 +34,6 @@ if (count($set) > 0){
 		</tr>
 	<?php }?>
 		<tr><td colspan="3"><h2></h2></td></tr>
-		<tr onclick="self.location.href='/next.html?lat=<?=$_GET["lat"]?>&lon=<?=$_GET["lon"]?>';"
-			style="cursor: hand; cursor: pointer;">
-			<td>Mehr anzeigen</td>
-			<td>    </td>
-			<td></td>
-		</tr>
 	</table>
 <?php }else{
 	header("HTTP/1.0 404 Not Found");

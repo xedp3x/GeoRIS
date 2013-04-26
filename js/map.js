@@ -59,7 +59,7 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 		
 		
 		if (document.getElementById("no_click") == null){
-			popupreq.open("GET", "/api.php?modul=find&lat="+lonlat.lat+"&lon="+lonlat.lon+"&zoom="+this.map.zoom ,true);
+			popupreq.open("GET", "/api.php?modul=find&lat="+lonlat.lat+"&lon="+lonlat.lon+"&resolution="+this.map.resolution ,true);
 			popupreq.onreadystatechange=function() {
 				if (popupreq.readyState==4) {
 					try {

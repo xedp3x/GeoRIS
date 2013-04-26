@@ -1,6 +1,6 @@
 <?php
 
-$set = ANTRAG_bygeo($_GET["lat"],$_GET["lon"],1);
+$set = ANTRAG_bygeo($_GET["lat"],$_GET["lon"],($_GET["resolution"]/20));
 
 if (count($set) > 0){
 	//DUMP($set);?>
